@@ -41,7 +41,7 @@ puts "Popped Last Value: #{linked_list.pop.data.to_s.colorize(:yellow)}"
 
 ## Check Nodes and Size
 puts "Nodes: #{linked_list}"
-puts "Size: #{linked_list.size.to_s.colorize(:yellow)}"
+puts "Size: #{linked_list.size.to_s.colorize(:yellow)}" 
 
 ## Check Head and Tail
 head = linked_list.head
