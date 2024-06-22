@@ -14,9 +14,10 @@ class LinkedList
     new_node = Node.new(data)
     @size += 1
     
-    # New Node to Head
+    # New Node to Head if theres no Node yet
     return @head = new_node if @head == nil
     
+    # Else if theres a node, I iterate to get the last node
     current = @head
 
     # Get the last node
@@ -38,15 +39,33 @@ class LinkedList
   end
 
   def head
-
+    @head
   end
 
   def tail
+    current = @head
 
+    while (current.link)
+      current = current.link
+    end
+
+    current
   end
 
-  def at()
+  def at(data)
+    current = @head
+    index = 0
 
+    while (current.link)
+      break if current.data.eql?(data)
+
+      index += 1
+      current = current.link
+      
+      return nil if current.link == nil && !current.data.eql?(data)
+    end
+
+    index
   end
 
   def pop
@@ -63,12 +82,18 @@ class LinkedList
 
   def to_s
     current = @head
+    output = ''
 
     while (current)
-      print current.link.to_s.eql?('') ? "(#{current.data}) -> nil" : "(#{current.data}) -> "
+      tail = "(#{current.data}) -> nil".colorize(:yellow)
+      node = "(#{current.data}) -> ".colorize(:yellow)
+
+      output += current.link.to_s.eql?('') ? tail : node
 
       current = current.link
     end
+
+    output
   end
 
   def insert_at()
