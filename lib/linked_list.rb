@@ -33,13 +33,7 @@ class LinkedList
 
   # Recursive Approach
   def append(data, new_node = Node.new(data), current = @head)
-    if current.nil?
-      @head = new_node
-    else
-      return append(data, new_node, current.link) unless current.link.nil?
-
-      current.link = new_node
-    end
+    current.nil? ? @head = new_node : tail.link = new_node
 
     @size += 1
     true
@@ -134,11 +128,8 @@ class LinkedList
   # end
 
   # Recursive Approach
-  def contains?(data, current = @head)
-    return true if current.data.eql?(data)
-    return false if current.link.nil?
-
-    contains?(data, current.link)
+  def contains?(data)
+    find(data) ? true : false
   end
 
   # Iterative Approach
@@ -185,12 +176,9 @@ class LinkedList
 
   # Recursion Approach
   def to_s(current = @head, output = '')
-    return output if current.nil?
+    return output << 'nil' if current.nil?
 
-    tail = "(#{current.data}) -> nil"
-    node = "(#{current.data}) -> "
-    output += current.link.to_s.eql?('') ? tail : node
-
+    output += "(#{current.data}) -> "
     to_s(current.link, output)
   end
 
@@ -219,8 +207,8 @@ class LinkedList
 
   # Recursive Approach
   def insert_at(value, index, accumulator = 0, current = @head)
-    return prepend(value) if index.eql?(0)
-    return false if (index + 1) > (@size)
+    return prepend(value) if index.zero?
+    return false if (index + 1) > @size
 
     if index.eql?(accumulator + 1)
       current.link = Node.new(value, current.link)
